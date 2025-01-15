@@ -1,0 +1,9 @@
+Parallel Transport video:
+https://www.youtube.com/watch?v=5LedteSEgOE
+
+Implementations
+https://github.com/jpanetta/ElasticRods/tree/master
+https://github.com/Zhecheng-Wang/Discrete-Elastic-Rods
+
+Thesis
+Discrete Elastic Rods, Andreas Kirsch
