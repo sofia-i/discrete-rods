@@ -15,6 +15,8 @@ inline bool double_equals(double inValue, double inCompareTo)
 
 class MathUtilities {
 public:
+    const static Eigen::Matrix2d J;
+
     static Eigen::Matrix3d get_rotation(const Eigen::Vector3d& vector1, const Eigen::Vector3d& vector2) {
         // Based on https://math.stackexchange.com/questions/180418/calculate-rotation-matrix-to-align-vector-a-to-vector-b-in-3d
         Eigen::Vector3d v = vector1.cross(vector2);
@@ -29,5 +31,7 @@ public:
         return rotation;
     }
 };
+
+const Eigen::Matrix2d MathUtilities::J = Eigen::Matrix2d {{0, -1}, {1, 0}};
 
 #endif //DISCRETE_RODS_MATHUTILITIES_H
