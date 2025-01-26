@@ -33,6 +33,7 @@ public:
      */
     inline Eigen::Vector<T, n_dim> get(int index) const;
     inline Eigen::VectorBlock<VectorXt, n_dim> get_ref(int index);
+    inline VectorXt get_values();
 
     /**
      * Set property at target index
@@ -69,8 +70,13 @@ public:
 
 };
 
+template<typename T, int n_dim>
+Eigen::Vector<T, Eigen::Dynamic> VectorProperty<T, n_dim>::get_values() {
+    return values;
+}
+
 template <typename T, int n_dim>
-VectorProperty<T, n_dim>::VectorProperty(int n_members): n_members(n_members), values(n_members) {}
+VectorProperty<T, n_dim>::VectorProperty(int n_members): n_members(n_members), values(n_members * n_dim) {}
 
 template<typename T, int n_dim>
 VectorProperty<T, n_dim> VectorProperty<T, n_dim>::Zero(const int n_members) {
