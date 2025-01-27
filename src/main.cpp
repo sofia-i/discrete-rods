@@ -42,45 +42,41 @@ void test_vec_prop() {
     std::cout << example << std::endl;
 }
 
-std::vector<Rod> create_rods() {
-    std::vector<Rod> rods;
+std::vector<Rod*> createRods() {
+    std::vector<Rod*> rods;
 
-    int nVerts = 5;
+    const int nVerts = 5;
 
-    Rod *r1 = new Rod(nVerts);
-    std::vector<Eigen::Vector3d> restPositions;
+    // VectorProperty<double, 3> restPositions(nVerts);
+    Eigen::VectorXd restPositions;
+    restPositions.resize(nVerts * 3);
+    restPositions.setZero();
+
     Eigen::Vector3d upVect = {0., 1., 0.};
     for(int i = 0; i < nVerts; ++i) {
-        if(i == 0) {
-            restPositions.push_back({0., 0., 0.});
-        }
-        else {
-            restPositions.push_back(restPositions[i-1] + upVect);
+        if (i > 0) {
+            restPositions[i*3 + 1] = restPositions[(i-1)*3 + 1] + 1;
         }
     }
+
+    std::vector<BoundaryCondition> boundCondit(nVerts, BoundaryCondition::FREE);
+    Eigen::VectorXd initialVel = Eigen::Vector<double, nVerts * 3>::Zero();
+
+    Rod *r1 = new Rod(nVerts, restPositions, restPositions, initialVel, boundCondit);
+
+    rods.push_back(r1);
+
+    return rods;
 }
 
 int main(int argc, char* argv[])
 {
     // test_mat_prop();
-    test_vec_prop();
+    // test_vec_prop();
 
-    /*
-    int nVerts = 5;
+    std::vector<Rod*> rods = createRods();
 
-    Rod *r1 = new Rod(nVerts);
-    std::vector<Eigen::Vector3d> restPositions;
-    Eigen::Vector3d upVect = {0., 1., 0.};
-    for(int i = 0; i < nVerts; ++i) {
-        if(i == 0) {
-            restPositions.push_back({0., 0., 0.});
-        }
-        else {
-            restPositions.push_back(restPositions[i-1] + upVect);
-        }
-    }
-     */
-
-
+    // VectorProperty<double, 3> prop(VectorProperty<double, 3>::Zero(4));
+    // std::cout << prop << std::endl;
 
 }

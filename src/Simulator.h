@@ -17,7 +17,7 @@ public:
     void run(int frames);
 
 private:
-    std::vector<Rod> rods;
+    std::vector<Rod*> rods;
 
 };
 

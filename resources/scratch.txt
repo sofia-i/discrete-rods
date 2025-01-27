@@ -1,0 +1,20 @@
+void Rod::set_initial_conditions(const Eigen::VectorXd& p, const Eigen::VectorXd& v) {
+    // [BWR+08] Require: (x_0, xdot_0) ... (x_n+1, xdot__n+1)
+    set_pos(p);
+    set_vel(v);
+
+    update_edges();
+
+    // FIXME: better way to find u0?
+    // Find u0 (a unit vector orthogonal to t0, uniquely defines bishop frame)
+    Eigen::Vector3d t0 = edges.get(0);
+    Eigen::Vector3d helper;
+    do {
+        helper = Eigen::Vector3d::Random();
+    } while (helper.dot(t0) == 0.0);
+
+    // [BWR+08] Require: u0
+    this->u0 = (helper - helper.dot(t0) / t0.dot(t0) * t0).normalized();
+
+    // initialized = true;
+}

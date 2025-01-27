@@ -19,10 +19,8 @@ void Simulator::run(int frames) {
     double ts;
     double curTime = 0.0;
 
+    // currently done in constructor:
     // 1. Precompute wij_
-    for(auto rod: rods) {
-        // rod.precompute_material_curvatures()
-    }
     // 2. Set quasistatic material frame
 
     for(int frame = 0; frame <= frames; ++frame) {
@@ -39,11 +37,19 @@ void Simulator::run(int frames) {
             // [RB] Integrate rigid-body
 
             // Compute forces on centerline
+
+
             // Integrate centerline
+
             // Enforce inextensibility and [RB] rigid body coupling
+
             // Collision detection and response
+
             // Update bishop frame
+
             // Update quasistatic material frame
+
+            curTime += ts;
         }
     }
 }
